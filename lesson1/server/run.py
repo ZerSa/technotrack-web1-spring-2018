@@ -3,7 +3,7 @@ import socket
 import time
 import os
 
-def get_header(code):
+def get_header(code):#состалвяет базовую часть хедера для http-ответа
     h = ''
     if (code == 200):
 	h = 'HTTP/1.1 200 OK\n'
@@ -19,10 +19,10 @@ def get_header(code):
 def get_response(request):
     split_request = request.split('\n')
     request_path = ''
-    if len(split_request[0].split(' ')) != 1:
+    if len(split_request[0].split(' ')) != 1:#достаем из запроса путь
 	request_path = split_request[0].split(' ')[1]
     response_code = -1
-    response_content = request_path
+
     if request_path == '/':
 	user_agent = 'Wow, who are you???\n'
 	for s in split_request:
@@ -69,20 +69,20 @@ def get_response(request):
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server_socket.bind(('localhost', 8000))  #
-server_socket.listen(0)  #
+server_socket.bind(('localhost', 8000))  #связали сокет с хостом
+server_socket.listen(1)  #установили размер очереди 0, т.е. не больше одного клиента
 
 
 print 'Started'
 
 while 1:
     try:
-        (client_socket, address) = server_socket.accept()
-        print 'Got new client', client_socket.getsockname()  #
-        request_string = client_socket.recv(2048)  #
-        client_socket.send(get_response(request_string))  #
+        (client_socket, address) = server_socket.accept()#установили свзяь с клинетом
+        print 'Got new client', client_socket.getsockname()  #печатаем "имя" клиента
+        request_string = client_socket.recv(2048)  #считали 2048 байт
+        client_socket.send(get_response(request_string))  #отправили ответ
         client_socket.close()
-    except KeyboardInterrupt:  #
+    except KeyboardInterrupt:  #ловим, когда пользователь вводит клавиши прерывания
         print 'Stopped'
-        server_socket.close()  #
+        server_socket.close()  #закрываем соединение
         exit()
