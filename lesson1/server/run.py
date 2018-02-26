@@ -70,7 +70,7 @@ def get_response(request):
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server_socket.bind(('localhost', 8000))  #связали сокет с хостом
-server_socket.listen(1)  #установили размер очереди 0, т.е. не больше одного клиента
+server_socket.listen(0)  #установили размер очереди 0, т.е. не больше одного клиента
 
 
 print 'Started'
