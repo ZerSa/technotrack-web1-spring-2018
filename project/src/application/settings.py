@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'forum.apps.ForumConfig',
-    'trainings.apps.TrainingsConfig',
+    'train.apps.TrainConfig'
 ]
 
 AUTH_USER_MODEL = 'core.User'
@@ -126,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'main_page'

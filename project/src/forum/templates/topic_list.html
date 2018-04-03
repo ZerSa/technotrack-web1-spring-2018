@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% block title %} Форум {% endblock %}
+
+{% block content %}
+    <a href="{% url 'topic_create' %}">Создать новую тему</a>
+
+    <div>
+        <form action="" method="get">
+            {{ topics_form.sort.label_tag}}{{ topics_form.sort }}
+            {% if topics_form.sort.errors %}
+                {{ topics_form.sort.errors }}
+            {% endif %}
+            {{ topics_form.search.label_tag }}{{ topics_form.search }}
+            <button> Go</button>
+        </form>
+    </div>
+
+    {% for topic in topics %}
+        <a href = "{% url 'topic_detail' pk=topic.id %}">{{ topic.name }}</a>
+    {% endfor %}
+
+    <div>
+        <a href="{% url 'main_page' %}">Вернуться на главную</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+
+{% block title %} Training list {% endblock %}
+
+{% block content %}
+
+    <div>
+        <form action="" method="get">
+            {{ trainings_form.sort.label_tag}}{{ trainings_form.sort }}
+            {% if trainings_form.sort.errors %}
+                {{ trainings_form.sort.errors }}
+            {% endif %}
+            {{ trainings_form.search.label_tag }}{{ trainings_form.search }}
+            <button> Go</button>
+        </form>
+    </div>
+
+    {% for training in trainings %}
+        <a href = "{% url 'training_detail' pk=training.id %}">{{ training.name }}</a>
+    {% endfor %}
+
+    <div>
+        <a href="{% url 'main_page' %}">Вернуться на главную</a>
+    </div>
+{% endblock %}
