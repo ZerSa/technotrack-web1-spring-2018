@@ -17,15 +17,24 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from core import views as core_views
 from django.contrib.auth.views import LoginView
+#from django.conf import settings
+#from django.contrib.staticfiles import views
+#from django.urls import re_path
+
 
 urlpatterns = [
     url(r'^core/login/$', core_views.Login.as_view(), name='login'),
     url(r'^core/logout/$', core_views.Logout.as_view(), name='logout'),
     url(r'^admin/', admin.site.urls),
 
-    url(r'^trainings/', include('train.urls')),
+    url(r'^trainings/', include('train.urls', namespace='trainings')),
 
     url(r'^$', core_views.index, name='main_page'),
 
-    url(r'^forum/', include('forum.urls'))
+    url(r'^forum/', include('forum.urls', namespace='forum'))
 ]
+
+#if settings.DEBUG:
+#    urlpatterns += [
+#        re_path(r'^static/(?P<path>.*)$', views.serve),
+#    ]

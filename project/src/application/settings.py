@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'forum.apps.ForumConfig',
-    'train.apps.TrainConfig'
+    'train.apps.TrainConfig',
+    'crispy_forms'
 ]
 
 AUTH_USER_MODEL = 'core.User'
@@ -128,4 +129,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'main_page'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

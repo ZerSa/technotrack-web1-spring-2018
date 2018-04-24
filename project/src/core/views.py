@@ -9,6 +9,6 @@ def index(request):
 class Login(LoginView):
     template_name = 'core/login.html'
 
+
 class Logout(LogoutView):
     template_name = 'core/logout.html'
-    redirect_field_name = 'main_page.html'

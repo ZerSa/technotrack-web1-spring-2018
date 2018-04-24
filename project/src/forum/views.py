@@ -18,17 +18,17 @@ class TopicListForm(forms.Form):
 
 class TopicEdit(UpdateView):
     model = Topic
-    fields = 'name',
+    fields = 'name', 'content'
     context_object_name = 'topics'
     template_name = 'topic_edit.html'
 
     def get_success_url(self):
-        return reverse('topic_detail', kwargs={'pk': self.object.pk})
+        return reverse('forum:topic_detail', kwargs={'pk': self.object.pk})
 
 
 class TopicCreate(CreateView):
     model = Topic
-    fields = 'name',
+    fields = 'name', 'content'
     context_object_name = 'topics'
     template_name = 'topic_create.html'
 
@@ -36,9 +36,8 @@ class TopicCreate(CreateView):
         form.instance.author = self.request.user
         return super(TopicCreate, self).form_valid(form)
 
-
     def get_success_url(self):
-        return reverse('topic_detail', kwargs={'pk': self.object.pk})
+        return reverse('forum:topic_detail', kwargs={'pk': self.object.pk})
 
 
 def topic_list(request):
@@ -56,20 +55,6 @@ def topic_list(request):
         'topics_form': form
     }
     return render(request, 'topic_list.html', context)
-
-
-def topic_create(request):
-    topic = Topic(author=request.user)
-    if request.method == 'GET':
-        form = TopicForm(instance=topic)
-        return render(request, 'topic_create.html', {'form': form})
-    elif request.method == 'POST':
-        form = TopicForm(request.POST, instance=topic)
-        if form.is_valid():
-            topic = form.save()
-            return redirect('topic_detail', pk=topic.id)
-        else:
-            return render(request, 'topic_create.html', {'form': form})
 
 
 def topic_detail(request, pk):
